@@ -78,13 +78,14 @@
                             <td>{{ $acta->jrv }}</td>
                             <td>{{ $acta->observaciones ?? '-' }}</td>
                             <td>
-                                @if($acta->pdf_path)
-                                    <a href="{{ Storage::url($acta->pdf_path) }}" target="_blank" class="btn-small grey darken-1">
-                                        <i class="material-icons left">picture_as_pdf</i> Ver PDF
-                                    </a>
-                                @else
-                                    Sin PDF
-                                @endif
+@if($acta->pdf_path)
+    <a href="{{ $acta->pdf_path }}" target="_blank" class="btn-small grey darken-1">
+        <i class="material-icons left">picture_as_pdf</i> Ver PDF
+    </a>
+@else
+    Sin PDF
+@endif
+
                             </td>
                             <td>{{ $acta->created_at }}</td>
                             <td>{{ $acta->updated_at }}</td>
