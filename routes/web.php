@@ -69,3 +69,23 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
 });
+
+Route::get('/test-upload', function () {
+    try {
+        // Contenido del archivo de prueba
+        $content = "Archivo de prueba generado automáticamente para DigitalOcean Spaces.\nFecha: " . now();
+
+        // Nombre del archivo
+        $filename = 'prueba_' . time() . '.txt';
+
+        // Subir el archivo a la carpeta 'actas' en el bucket
+        $path = Storage::disk('s3')->put('actas/' . $filename, $content, 'public');
+
+        // Obtener URL pública
+        $url = Storage::disk('s3')->url('actas/' . $filename);
+
+        return "Archivo subido correctamente: <a href='$url' target='_blank'>$url</a>";
+    } catch (\Exception $e) {
+        return "Error al subir el archivo: " . $e->getMessage();
+    }
+});
